@@ -1,35 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./Header";
 import StudentProfile from "./StudentProfile";
 import Footer from "./Footer";
 
 function App() {
-  const student1Name = "Anu";
-  const student1Department = "CSE";
-  const student1Year = "3rd Year";
+  const studentName = "Anu";
+  const studentDepartment = "CSE";
+  const studentYear = "3rd Year";
 
-  const student2Name = "Bala";
-  const student2Department = "Computer Science";
-  const student2Year = "3rd Year";
+  const [count, setCount] = useState(0);
+  const [showProfile, setShowProfile] = useState(true);
+
+  const completePractice = () => {
+    setCount(count + 1);
+  };
+
+  const resetPractice = () => {
+    setCount(0);
+  };
 
   return (
     <div>
       <Header />
 
-      <h2>Student 1</h2>
-      <StudentProfile
-        name={student1Name}
-        department={student1Department}
-        year={student1Year}
-      />
+      <button onClick={() => setShowProfile(!showProfile)}>
+        {showProfile ? "Hide Profile" : "Show Profile"}
+      </button>
 
-      <h2>Student 2</h2>
-      <StudentProfile
-        name={student2Name}
-        department={student2Department}
-        year={student2Year}
-      />
+      {showProfile && (
+        <StudentProfile
+          name={studentName}
+          department={studentDepartment}
+          year={studentYear}
+          count={count}
+          onComplete={completePractice}
+          onReset={resetPractice}
+        />
+      )}
 
       <Footer />
     </div>
